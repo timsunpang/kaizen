@@ -1,0 +1,22 @@
+<h1 class="login">Login</h1>
+
+<form class="login-form" action="<%= session_url %>" method="post">
+  <%= hidden_field_tag :authenticity_token, form_authenticity_token %>
+  <p>
+    <label for="username">Username</label>
+    <input type="text" id="username" name="user[username]" value="">
+  </p>
+  <!-- <p>
+    <label for="email">Email</label>
+    <input type="text" id="email" name="user[email]" value="">
+  </p> -->
+
+  <p>
+    <label for="password">Password</label>
+    <input type="password" id="password" name="user[password]" value="">
+  </p>
+
+  <p>
+    <input type="submit" name="submit" value="Submit">
+  </p>
+</form>

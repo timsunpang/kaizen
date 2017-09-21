@@ -10,6 +10,7 @@
 #  weight          :integer
 #  created_at      :datetime         not null
 #  updated_at      :datetime         not null
+#  session_token   :string
 #
 
 class User < ActiveRecord::Base
@@ -37,19 +38,18 @@ class User < ActiveRecord::Base
     self.save
   end
 
-  def ensure_session_token
-    self.session_token ||= User.generate_session_token
-  end
-
   def self.find_by_credentials(username, password)
     user = User.find_by(username: username)
-    if user
-      return user.is_password?(password) || nil
-    end
+    return nil if user.nil?
+    user.is_password?(password) ? user : nil
+  end
+
+  def self.generate_session_token
+    return SecureRandom::urlsafe_base64
   end
 
   private
-  def self.generate_session_token
-    return SecureRandom::urlsafe_base64
+  def ensure_session_token
+    self.session_token ||= User.generate_session_token
   end
 end

@@ -1,7 +1,8 @@
 Rails.application.routes.draw do
-  root 'users#index'
+  root 'static_pages#root'
+  get 'session/new', to: 'static_pages#login', :path => '/login'
 
-  resource :session, only: [:new, :create, :destroy]
+  resource :session, only: [:create, :destroy]
   resources :users, :workouts, :exercises
   resources :records, only: [:index, :new, :create, :update]
   resources :logs, only: [:index, :new, :create, :edit, :update, :destroy]

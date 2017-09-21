@@ -10,6 +10,7 @@
 #  weight          :integer
 #  created_at      :datetime         not null
 #  updated_at      :datetime         not null
+#  session_token   :string
 #
 
 require 'test_helper'
