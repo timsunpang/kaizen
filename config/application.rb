@@ -5,6 +5,8 @@ require 'rails/all'
 # Require the gems listed in Gemfile, including any gems
 # you've limited to :test, :development, or :production.
 Bundler.require(*Rails.groups)
+# Load application ENV vars and merge with existing ENV vars. Loaded here so can use values in initializers.
+ENV.update YAML.load_file('config/application.yml')[Rails.env] rescue {}
 
 module Kaizen
   class Application < Rails::Application
@@ -20,7 +22,9 @@ module Kaizen
     # config.i18n.load_path += Dir[Rails.root.join('my', 'locales', '*.{rb,yml}').to_s]
     # config.i18n.default_locale = :de
 
+
     # Do not swallow errors in after_commit/after_rollback callbacks.
     config.active_record.raise_in_transactional_callbacks = true
+    config.autoload_paths << Rails.root.join('lib')
   end
 end

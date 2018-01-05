@@ -6,15 +6,28 @@ class SessionsController < ApplicationController
     )
 
     if user.nil?
-      render json: "Wrong credentials"
+      payload = {
+        error: "No such user exists, or password was incorrect.",
+        status: 400
+      }
+      render :json => payload, :status => :bad_request
     else
       login!(user)
-      redirect_to user_url(user)
+      jwt = Auth.issue({user: user.id})
+      render json: {
+        jwt: jwt,
+        status: 200
+      }
     end
   end
 
   def destroy
     logout!
     redirect_to session_new_url
+  end
+
+  private
+  def auth_params
+    params.require(:username).permit(:password)
   end
 end

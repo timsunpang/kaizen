@@ -1,0 +1,16 @@
+defaults: &defaults
+  email: dev@example.com
+  secret: foo123
+  AUTH_SECRET: "<\x17\xA9\xF2\x87\x05\xB3\xC0\n\x8Ff\xBC\xBBw\xDC\x82qU1\xCE\x03\xA0\x93u.\x17u\xD3@@\xCE\xB8"
+
+development:
+  <<: *defaults
+
+test:
+  <<: *defaults
+  email: test@example.com
+
+production:
+  <<: *defaults
+  email: info@example.com
+  secret: 321oof
